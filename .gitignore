@@ -1,0 +1,8 @@
+# Files
+*.py[cod]
+*.sw[po]
+
+# Folders
+venv/
+__pycache__/
+instance/
