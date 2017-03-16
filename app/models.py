@@ -12,9 +12,11 @@ class Employee(UserMixin, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(60), index=True, unique=True)
+    email = db.Column(db.String(60), index=True, unique=True)
     first_name = db.Column(db.String(60), index=True)
     last_name = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
+    is_admin = db.Column(db.Boolean, default=False)
 
     @property
     def password(self):
@@ -33,10 +35,12 @@ class Employee(UserMixin, db.Model):
     def __repr__(self):
         return '<Employee: {}>'.format(self.username)
 
+
 # Set up user_loader
 @login_manager.user_loader
 def load_user(user_id):
     return Employee.query.get(int(user_id))
+
 
 class States(enum.Enum):
     IL = 'Illinois'
@@ -44,6 +48,7 @@ class States(enum.Enum):
     MI = 'Michigan'
     IA = 'Iowa'
     MN = 'Minnesota'
+
 
 class Customer(db.Model):
     """ Create a Customer table """
