@@ -26,6 +26,9 @@ def create_app(config_name):
     # Initialize migration
     migrate = Migrate(app, db)
 
+    # Boostrap app
+    Boostrap(app)
+
     from app import models
 
     from .admin import admin as admin_blueprint
