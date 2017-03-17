@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_bootstrap import Bootstrap
 
 from config import app_config
 
@@ -25,6 +26,9 @@ def create_app(config_name):
 
     # Initialize migration
     migrate = Migrate(app, db)
+
+    # Boostrap app
+    Bootstrap(app)
 
     from app import models
 
