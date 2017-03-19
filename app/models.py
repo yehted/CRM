@@ -17,6 +17,8 @@ class Employee(UserMixin, db.Model):
     last_name = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
     is_admin = db.Column(db.Boolean, default=False)
+    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 
     @property
     def password(self):

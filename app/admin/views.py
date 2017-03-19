@@ -71,7 +71,7 @@ def edit_department(id):
                             add_department=add_department, form=form,
                             department=department, title="Edit Department")
 
-@admin.route('/departments/delete/<int:id>, methods=['GET', 'POST'])
+@admin.route('/departments/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def delete_department(id):
     """ Delete a department from the database """
