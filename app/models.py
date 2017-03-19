@@ -17,6 +17,8 @@ class Employee(UserMixin, db.Model):
     last_name = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
     is_admin = db.Column(db.Boolean, default=False)
+    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 
     @property
     def password(self):
@@ -77,3 +79,33 @@ class Contact(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
 
     # projects
+
+
+class Department(db.Model):
+    """ Create a Deaprtment table """
+
+    __tablename__ = 'departments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), unique=True)
+    description = db.Column(db.String(200))
+    employees = db.relationship('Employee', backref='department',
+                                lazy='dynamic')
+
+    def __repr__(self):
+        return '<Department: {}>'.format(self.name)
+
+
+class Role(db.Model):
+    """ Create a Role table """
+
+    __tablename__ = 'roles'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), unique=True)
+    description = db.Column(db.String(200))
+    employees = db.relationship('Employee', backref='role',
+                                lazy='dynamic')
+
+    def __repr__(self):
+        return '<Role: {}>'.format(self.name)
