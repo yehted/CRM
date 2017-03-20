@@ -2,15 +2,16 @@ from flask import abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
 from . import admin
-from forms import DepartmentForm
+from forms import DepartmentForm, RoleForm
 from .. import db
-from ..models import Department
+from ..models import Department, Role
 
 def check_admin():
     """ Prevent non-admins from accessing the page """
     if not current_user.is_admin:
         abort(403)
 
+# Department Views
 
 @admin.route('/departments', methods=['GET', 'POST'])
 @login_required
@@ -85,3 +86,6 @@ def delete_department(id):
     return redirect(url_for('admin.list_departments'))
 
     # return render_template(title="Delete Department")
+
+# Role Views
+
